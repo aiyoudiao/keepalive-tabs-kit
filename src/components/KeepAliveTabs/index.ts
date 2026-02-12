@@ -8,3 +8,5 @@ export type {
   RouteInfo,
   TabItem,
 } from './types';
+
+export { useKeepAliveManager } from './core';

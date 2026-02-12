@@ -7,6 +7,7 @@ export type KeepAlivePolicy =
       max?: number;
       ttl?: number;
       reuse?: boolean;
+      strategy?: 'lru' | 'fifo';
     };
 
 export type RouteInfo = {

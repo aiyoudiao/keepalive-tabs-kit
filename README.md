@@ -129,6 +129,16 @@ export const router = createBrowserRouter([
 
 如果你想快速验证一份“可复制的最小用法”，也可以看 Storybook 的 MemoryRouter 版本：[KeepAliveTabs.stories.tsx](file:///c:/MyWork/open_source/keepalive-tabs-kit/src/components/KeepAliveTabs/KeepAliveTabs.stories.tsx#L19-L45)
 
+
+### Core 与 UI 解耦（进阶）
+
+当前已将核心状态管理抽离为 `useKeepAliveManager`，默认 `KeepAliveLayout` + `TabsBar` 为 antd UI 实现。
+如果你要自定义 UI，可以复用 core hook 构建自己的 tab 头部和内容区。
+
+```ts
+import { useKeepAliveManager } from 'keepalive-tabs-kit';
+```
+
 ## API 说明
 
 ### KeepAliveLayout
@@ -159,7 +169,14 @@ type KeepAliveLayoutProps = {
 type RouteInfo = {
   name: string;
   icon?: React.ReactNode;
-  keepAlive?: boolean;
+  keepAlive?:
+    | boolean
+    | {
+        max?: number;
+        ttl?: number;
+        reuse?: boolean;
+        strategy?: 'lru' | 'fifo';
+      };
 };
 ```
 
@@ -171,6 +188,7 @@ type RouteInfo = {
     - `max`：最大缓存 tab 数（超出后自动淘汰最旧 tab）
     - `ttl`：缓存生存时间（毫秒）
     - `reuse`：默认 `true`，设为 `false` 时会将 query 计入缓存 key
+    - `strategy`：淘汰策略，支持 `lru`（最近最少使用，默认）或 `fifo`（先进先出）
 
 ### 刷新恢复（持久化）
 

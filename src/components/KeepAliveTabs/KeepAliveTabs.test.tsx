@@ -106,4 +106,43 @@ describe('KeepAliveTabs', () => {
       expect(router.state.location.pathname).toBe('/about');
     });
   });
+
+  it('keepAlive max with lru strategy evicts least recently used tab', async () => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(['/about']));
+
+    const routeConfig: RouteConfig = {
+      '/about': { name: '关于', keepAlive: { max: 2, strategy: 'lru' } },
+      '/counter/:id': { name: 'Counter', keepAlive: { max: 2, strategy: 'lru' } },
+      '/probe': { name: 'Probe', keepAlive: { max: 2, strategy: 'lru' } },
+    };
+
+    const router = createMemoryRouter(
+      [
+        {
+          path: '/',
+          element: <KeepAliveLayout routeConfig={routeConfig as RouteConfig} />,
+          children: [
+            { path: 'about', element: <div>about</div> },
+            { path: 'counter/:id', element: <div>counter</div> },
+            { path: 'probe', element: <div>probe</div> },
+          ],
+        },
+      ],
+      { initialEntries: ['/about'] },
+    );
+
+    render(<RouterProvider router={router} />);
+
+    expect((await screen.findAllByText('about')).length).toBeGreaterThan(0);
+
+    await act(async () => {
+      await router.navigate('/counter/1');
+      await router.navigate('/about');
+      await router.navigate('/probe');
+    });
+
+    const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]') as string[];
+    expect(saved).toEqual(['/about', '/probe']);
+  });
+
 });

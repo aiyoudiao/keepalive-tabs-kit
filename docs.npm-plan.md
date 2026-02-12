@@ -73,3 +73,10 @@ import 'keepalive-tabs-kit/style.css';
 ```
 
 然后在路由中传入 `routeConfig` 即可完成接入。
+
+
+## 当前已落地（对应 1 & 2）
+
+- ✅ 已将核心状态管理从 `KeepAliveLayout` 中抽离到 `useKeepAliveManager`，形成 **core（状态）+ antd UI（展示）** 的分层。
+- ✅ `keepAlive` 已支持细粒度策略：`max`、`ttl`、`reuse`，并新增 `strategy`（`lru` / `fifo`）用于超限淘汰。
+- ✅ 增加了对应自动化测试，覆盖 `max + lru` 行为。
