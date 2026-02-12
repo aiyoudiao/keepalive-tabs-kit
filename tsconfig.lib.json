@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "sourceMap": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": [
+    "src/lib.ts",
+    "src/components/KeepAliveTabs/**/*"
+  ],
+  "exclude": [
+    "**/*.stories.*",
+    "**/*.test.*"
+  ]
+}
