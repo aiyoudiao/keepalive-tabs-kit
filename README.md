@@ -5,21 +5,44 @@
 
 一个基于 React Router v6 的“最小可复用” KeepAlive Tabs 方案：路由驱动多页签、拖拽排序、右键菜单、页面缓存与刷新恢复。仓库本身是可直接运行与二次改造的 Demo 工程。
 
+## 演示
+
+<p align="center">
+  <img src="./sources/20260212-161952.gif" alt="KeepAlive Tabs Demo 1" width="960" />
+</p>
+<p align="center">
+  <img src="./sources/20260212-162337.gif" alt="KeepAlive Tabs Demo 2" width="960" />
+</p>
+<p align="center">
+  <img src="./sources/20260212-163025.gif" alt="KeepAlive Tabs Demo 2" width="960" />
+</p>
+
 - 在线预览（GitHub Pages）：https://aiyoudiao.github.io/keepalive-tabs-kit/
 - Storybook：同上（Pages 里就是 Storybook 静态站点）
 
 ## 目录
 
-- [特性](#特性)
-- [快速开始](#快速开始)
-- [用法（在你自己的项目里复用）](#用法在你自己的项目里复用)
-- [API 说明](#api-说明)
-- [关键实现与约束](#关键实现与约束)
-- [开发命令](#开发命令)
-- [常见问题](#常见问题)
-- [贡献](#贡献)
-- [安全](#安全)
-- [许可证](#许可证)
+- [KeepAlive Tabs Kit](#keepalive-tabs-kit)
+  - [演示](#演示)
+  - [目录](#目录)
+  - [特性](#特性)
+  - [快速开始](#快速开始)
+    - [环境要求](#环境要求)
+    - [启动开发服务](#启动开发服务)
+    - [构建](#构建)
+  - [用法（在你自己的项目里复用）](#用法在你自己的项目里复用)
+  - [API 说明](#api-说明)
+    - [KeepAliveLayout](#keepalivelayout)
+    - [RouteInfo](#routeinfo)
+    - [刷新恢复（持久化）](#刷新恢复持久化)
+  - [关键实现与约束](#关键实现与约束)
+  - [开发命令](#开发命令)
+  - [常见问题](#常见问题)
+    - [为什么不用把 outlet 放进 state？](#为什么不用把-outlet-放进-state)
+    - [刷新恢复存在哪里？](#刷新恢复存在哪里)
+  - [贡献](#贡献)
+  - [安全](#安全)
+  - [许可证](#许可证)
 
 ## 特性
 
