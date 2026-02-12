@@ -78,6 +78,18 @@ pnpm dev
 pnpm build
 ```
 
+## 作为 npm 包使用（推荐）
+
+```bash
+pnpm add keepalive-tabs-kit
+# 或 npm i keepalive-tabs-kit
+```
+
+```tsx
+import { KeepAliveLayout, RouteConfig } from 'keepalive-tabs-kit';
+import 'keepalive-tabs-kit/style.css';
+```
+
 ## 用法（在你自己的项目里复用）
 
 这套实现更偏“可复制粘贴的 Kit”，推荐直接把实现文件带走：
@@ -124,8 +136,16 @@ export const router = createBrowserRouter([
 从 [components/KeepAliveTabs/index.ts](file:///c:/MyWork/open_source/keepalive-tabs-kit/src/components/KeepAliveTabs/index.ts) 导出：
 
 ```ts
-type Props = {
+type KeepAliveLayoutProps = {
   routeConfig: RouteConfig;
+  namespace?: string;
+  storage?: {
+    read: (key: string) => string | null;
+    write: (key: string, value: string) => void;
+  };
+  onTabOpen?: (payload: { path: string; title: string }) => void;
+  onTabClose?: (payload: { path: string; title: string }) => void;
+  onRestore?: (paths: string[]) => void;
 };
 ```
 
@@ -145,7 +165,12 @@ type RouteInfo = {
 
 - `name`：Tab 标题
 - `icon`：Tab 图标（可选）
-- `keepAlive`：默认开启；显式设为 `false` 时，该路由不走缓存（直接渲染 outlet）
+- `keepAlive`：支持 `boolean` 或对象
+  - `false`：禁用缓存
+  - `{ max?: number; ttl?: number; reuse?: boolean }`：
+    - `max`：最大缓存 tab 数（超出后自动淘汰最旧 tab）
+    - `ttl`：缓存生存时间（毫秒）
+    - `reuse`：默认 `true`，设为 `false` 时会将 query 计入缓存 key
 
 ### 刷新恢复（持久化）
 
@@ -192,6 +217,15 @@ pnpm typecheck        # 类型检查
 ## 安全
 
 - [SECURITY.md](./SECURITY.md)
+
+
+## 项目优化与 npm 包化
+
+如果你希望把当前 Demo 进一步工程化，并最终做成可直接安装的 npm 包，可以参考：
+
+- [docs.npm-plan.md](./docs.npm-plan.md)
+
+文档覆盖了：可优化方向、功能扩展点、npm 包目录规划、最小发布步骤与目标使用体验。
 
 ## 许可证
 

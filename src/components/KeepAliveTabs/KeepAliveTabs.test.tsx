@@ -6,7 +6,7 @@ import type { RouteConfig } from '@/components/KeepAliveTabs';
 import { KeepAliveLayout } from '@/components/KeepAliveTabs';
 import { useKeepAliveContext } from '@/components/KeepAliveTabs/context';
 
-const STORAGE_KEY = '__keepalive_tabs_list__';
+const STORAGE_KEY = '__keepalive_tabs_list__:default';
 
 const Probe: React.FC<{ onReady: (ctx: ReturnType<typeof useKeepAliveContext>) => void }> = ({ onReady }) => {
   const ctx = useKeepAliveContext();
