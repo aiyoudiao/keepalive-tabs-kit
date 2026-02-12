@@ -4,5 +4,4 @@
 
 ## 0.1.0
 
-- 初始开源版本：KeepAliveTabs（多页签 + 缓存 + 刷新恢复）与根级 ErrorBoundary Demo
-
+- 初始开源版本：KeepAliveTabs（路由驱动多页签、拖拽排序、右键菜单、页面缓存与刷新恢复）与根级 ErrorBoundary Demo
